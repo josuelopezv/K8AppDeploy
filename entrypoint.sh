@@ -5,7 +5,7 @@ KUBE_CONFIG_DATA=$1
 IMG_TAG=$2
 APP_NAME=$3
 APPNS=$4
-APP-PORT=$5
+APP_PORT=$5
 HOST_NAME=$6
 APP_PATH=$7
 EXTRA_ANNOTATIONS=$8
@@ -70,7 +70,7 @@ spec:
     app: $APP_NAME
     ports:
     - protocol: TCP
-        port: $APP-PORT
+        port: $APP_PORT
         targetPort: 80
 ---
 apiVersion: apps/v1
@@ -94,7 +94,7 @@ spec:
         - name: $APP_NAME
         image: $IMG_TAG
         ports:
-        - containerPort: $APP-PORT    
+        - containerPort: $APP_PORT    
 ---
 EOF
 
