@@ -9,7 +9,7 @@ APP_PORT=$5
 HOST_NAME=$6
 APP_PATH=$7
 EXTRA_ANNOTATIONS=$8
-USE_CACHE=$9
+EXTRA_CMDS=$9
 
 version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 curl -sLO "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl" -o kubectl
@@ -20,33 +20,6 @@ PATH=$PATH:~/.local/bin/kubectl
 echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
 
-if [ "$USE_CACHE" = true ]; then
-CACHE_ANNOTATIONS=$(cat <<EOF
-kubernetes.io/ingress.class: nginx
-nginx.ingress.kubernetes.io/proxy-buffering: "on",
-nginx.ingress.kubernetes.io/server-snippet: "
-    proxy_cache mycache;
-    proxy_cache_lock on;
-    proxy_cache_valid any 60m;
-    proxy_ignore_headers Cache-Control;
-    add_header X-Cache-Status $upstream_cache_status;
-"
-EOF
-)
-
-cat <<EOF | kubectl apply -f -
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  labels:
-    app: ingress-nginx
-  name: nginx-configuration
-  namespace: ingress-nginx
-data:
-  http-snippet: "proxy_cache_path /tmp/nginx_cache levels=1:2 keys_zone=defaultcache:200m use_temp_path=off max_size=4g inactive=24h;"
-EOF
-fi
 
 if [  "$APPNS" != "default" ] ; then
 cat <<EOF | kubectl apply -f -
@@ -106,7 +79,7 @@ metadata:
     namespace: $APPNS
     annotations:
     {
-        $EXTRA_ANNOTATIONS, $CACHE_ANNOTATIONS
+        $EXTRA_ANNOTATIONS
     }
 spec:
     rules:
@@ -124,3 +97,5 @@ EOF
 
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
 kubectl rollout restart deployment/$APP_NAME -n $APPNS
+
+sh -c "$EXTRA_CMDS"

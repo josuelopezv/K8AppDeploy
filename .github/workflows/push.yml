@@ -16,4 +16,6 @@ jobs:
         ingress-hostname: example.domain.com
         app-port: 80
         ingress-extra-annotations: 'nginx.ingress.kubernetes.io/proxy-body-size: 200m, nginx.ingress.kubernetes.io/x-forwarded-prefix: "/path"'
-        ingress-use-cache: true
+        extra-cmd: 
+          sdfsdf
+          sdfsdf

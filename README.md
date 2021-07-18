@@ -50,5 +50,5 @@ For Example:
 nginx.ingress.kubernetes.io/proxy-body-size: 200m, nginx.ingress.kubernetes.io/x-forwarded-prefix: "/path"
 ```
 
-`ingress-use-cache` – : Enables nginx-ingress cache system. Accepted values: false (default), true
+`extra-cmd` – : extra bash commands to run after deploy
 
