@@ -1,0 +1,43 @@
+# action.yml
+name: 'K8AppDeploy'
+description: 'Deploy Docker App to Kubernetes Cluster using ingress'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.kube-config }}
+    - ${{ inputs.app-name }}
+    - ${{ inputs.app-namespace }}
+    - ${{ inputs.app-port }}
+    - ${{ inputs.ingress-hostname }}
+    - ${{ inputs.ingress-path }}
+    - ${{ inputs.ingress-extra-annotations }}
+    - ${{ inputs.ingress-use-cache }}
+    - ${{ inputs.asd }}
+branding:
+  icon: 'terminal'
+  color: 'blue'
+inputs:
+  kube-config:
+    description: 'kube config data. Generate it loaclly using: (cat $HOME/.kube/config | base64)'
+    required: true
+  app-name:
+    description: 'name to be used for service,deploy,pod,ingress'
+    required: true
+  app-namespace:
+    description: 'namespace to be used generated and used for service,deploy,pod,ingress'
+    default: default
+  app-port:
+    description: 'port source exposed in backend container'
+    required: true
+  ingress-hostname:
+    description: 'ingress host for example app.mydomain.com'
+    required: true
+  ingress-path:
+    description: 'ingress path used for backend and frontend'
+    default: /
+  ingress-extra-annotations:
+    description: 'additional annotations for the ingress yaml separated by coma. Ex.: mykey1: value1, mykey2: value2'
+  ingress-use-cache:
+    description: 'enables nginx ingress cache. accepted values: false (default), true'
+    default: false
