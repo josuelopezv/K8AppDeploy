@@ -21,15 +21,15 @@ jobs:
         container-image: nginx:latest
         app-name: my-app
         app-namespace: app-example
-        ingress-hostname: example.domain.com
+        ingress-hostname: example.agileliteracy.com
         app-port: 80
         ingress-extra-annotations: |
           nginx.ingress.kubernetes.io/proxy-buffering: "on",
-          nginx.ingress.kubernetes.io/server-snippet: "
-            proxy_cache mycache;
-            proxy_cache_lock on;
-            proxy_cache_valid any 60m;
-            proxy_ignore_headers Cache-Control;
+          nginx.ingress.kubernetes.io/server-snippet: 
+            "proxy_cache mycache;
+             proxy_cache_lock on;
+             proxy_cache_valid any 60m;
+             proxy_ignore_headers Cache-Control;"
         extra-cmd: |
           kubectl get pods -A
           echo "completed"
@@ -51,7 +51,7 @@ cat $HOME/.kube/config | base64
 
 `ingress-hostname` – **required**: Ingress host. For example app.mydomain.com
 
-`ingress-path` – : Ingress path used for backend and frontend. See https://kubernetes.io/docs/concepts/services-networking/ingress/
+`ingress-path` – : Ingress path used for backend and frontend. Default value: ```/```. See https://kubernetes.io/docs/concepts/services-networking/ingress/
 
 `ingress-extra-annotations` – : Additional annotations for the ingress. String separated by coma. See some nginx specific ingrees annotations https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations 
 
