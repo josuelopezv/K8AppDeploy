@@ -80,22 +80,20 @@ kind: Ingress
 metadata:
     name: $APP_NAME
     namespace: $APPNS
-    annotations:
-    {
-        $EXTRA_ANNOTATIONS
-    }
+    annotations: { $EXTRA_ANNOTATIONS }
 spec:
-    rules:
+  rules:
     - host: $HOST_NAME
-    http:
+      http:
         paths:
         - path: $APP_PATH
-        pathType: ImplementationSpecific
-        backend:
+          pathType: ImplementationSpecific
+          backend:
             service:
-            name: $APP_NAME
-            port:
+              name: $APP_NAME
+              port:
                 number: 80
+                
 EOF
 
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
