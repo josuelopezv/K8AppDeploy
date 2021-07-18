@@ -11,7 +11,7 @@ APP_PATH=$7
 EXTRA_ANNOTATIONS=$8
 EXTRA_CMDS=$9
 
-echo "Downloading kubectl"
+echo "downloading kubectl"
 version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 curl -sLO "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl" -o kubectl
 chmod +x kubectl
@@ -96,7 +96,7 @@ spec:
                 number: 80
                 
 EOF
-echo "Applied config files"
+echo "applied config files"
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
 kubectl rollout restart deployment/$APP_NAME -n $APPNS
 kubectl rollout status deployment/$APP_NAME -n $APPNS
