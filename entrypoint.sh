@@ -36,38 +36,41 @@ cat <<EOF | kubectl apply -f -
 apiVersion: v1
 kind: Service
 metadata:
-    name: $APP_NAME
-    namespace: $APPNS
+  name: $APP_NAME
+  namespace: $APPNS
 spec:
-    selector:
+  selector:
     app: $APP_NAME
-    ports:
+  ports:
     - protocol: TCP
-        port: $APP_PORT
-        targetPort: 80
+      port: $APP_PORT
+      targetPort: 80
 ---
+EOF
+
+cat <<EOF | kubectl apply -f -
 apiVersion: apps/v1
 kind: Deployment
 metadata:
     name: $APP_NAME
     namespace: $APPNS
     labels:
-    app: $APP_NAME
+      app: $APP_NAME
 spec:
     replicas: 1
     selector:
-    matchLabels:
+      matchLabels:
         app: $APP_NAME
     template:
-    metadata:
+      metadata:
         labels:
-        app: $APP_NAME
-    spec:
+          app: $APP_NAME
+      spec:
         containers:
         - name: $APP_NAME
-        image: $IMG_TAG
-        ports:
-        - containerPort: $APP_PORT    
+          image: $IMG_TAG
+          ports:
+          - containerPort: $APP_PORT    
 ---
 EOF
 

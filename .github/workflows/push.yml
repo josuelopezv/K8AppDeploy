@@ -26,16 +26,5 @@ jobs:
             add_header X-Cache-Status $upstream_cache_status;
           "
         extra-cmd: |
-          cat <<EOF | kubectl apply -f -
-          ---
-          apiVersion: v1
-          kind: ConfigMap
-          metadata:
-            labels:
-              app: ingress-nginx
-            name: nginx-configuration
-            namespace: ingress  
-          data:
-            http-snippet: "proxy_cache_path /tmp/nginx_cache levels=1:2 keys_zone=defaultcache:200m use_temp_path=off max_size=4g inactive=24h;"
-          EOF
-          fi
+          kubectl get pods -A
+          echo "completed"
