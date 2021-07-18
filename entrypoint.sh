@@ -20,7 +20,7 @@ PATH=$PATH:~/.local/bin/kubectl
 echo "$KUBE_CONFIG_DATA" | base64 -d > /tmp/config
 export KUBECONFIG=/tmp/config
 
-if ["$USE_CACHE" = true]; then
+if [ "$USE_CACHE" = true ]; then
 CACHE_ANNOTATIONS=$(cat <<EOF
 kubernetes.io/ingress.class: nginx
 nginx.ingress.kubernetes.io/proxy-buffering: "on",
