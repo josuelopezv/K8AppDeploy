@@ -12,18 +12,16 @@ jobs:
         kube-config: ${{ secrets.KUBE_CONFIG_DATA}}
         container-image: nginx:latest
         app-name: my-app
-        app-namespace: deployed-apps
+        app-namespace: app-example
         ingress-hostname: example.domain.com
         app-port: 80
         ingress-extra-annotations: |
-          kubernetes.io/ingress.class: nginx,
           nginx.ingress.kubernetes.io/proxy-buffering: "on",
           nginx.ingress.kubernetes.io/server-snippet: "
             proxy_cache mycache;
             proxy_cache_lock on;
             proxy_cache_valid any 60m;
             proxy_ignore_headers Cache-Control;
-            add_header X-Cache-Status $upstream_cache_status;"
         extra-cmd: |
           kubectl get pods -A
           echo "completed"

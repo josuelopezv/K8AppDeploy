@@ -20,9 +20,19 @@ jobs:
         kube-config: ${{ secrets.KUBE_CONFIG_DATA}}
         container-image: nginx:latest
         app-name: my-app
-        app-namespace: deployed-apps
+        app-namespace: app-example
         ingress-hostname: example.domain.com
         app-port: 80
+        ingress-extra-annotations: |
+          nginx.ingress.kubernetes.io/proxy-buffering: "on",
+          nginx.ingress.kubernetes.io/server-snippet: "
+            proxy_cache mycache;
+            proxy_cache_lock on;
+            proxy_cache_valid any 60m;
+            proxy_ignore_headers Cache-Control;
+        extra-cmd: |
+          kubectl get pods -A
+          echo "completed"
 ```
 
 ## Arguments
@@ -44,11 +54,6 @@ cat $HOME/.kube/config | base64
 `ingress-path` – : Ingress path used for backend and frontend. See https://kubernetes.io/docs/concepts/services-networking/ingress/
 
 `ingress-extra-annotations` – : Additional annotations for the ingress. String separated by coma. See some nginx specific ingrees annotations https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations 
-
-For Example: 
-```sh
-nginx.ingress.kubernetes.io/proxy-body-size: 200m, nginx.ingress.kubernetes.io/x-forwarded-prefix: "/path"
-```
 
 `extra-cmd` – : extra bash commands to run after deploy
 
