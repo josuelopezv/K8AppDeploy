@@ -99,4 +99,6 @@ EOF
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
 kubectl rollout restart deployment/$APP_NAME -n $APPNS
 
+if [ "$EXTRA_CMDS" ] ; then
 sh -c "$EXTRA_CMDS"
+fi
