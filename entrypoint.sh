@@ -2,13 +2,14 @@
 
 set -e
 KUBE_CONFIG_DATA=$1
-APP_NAME=$2
-APPNS=$3
-APP-PORT=$4
-HOST_NAME=$5
-APP_PATH=$6
-EXTRA_ANNOTATIONS=$7
-USE_CACHE=$7
+IMG_TAG=$2
+APP_NAME=$3
+APPNS=$4
+APP-PORT=$5
+HOST_NAME=$6
+APP_PATH=$7
+EXTRA_ANNOTATIONS=$8
+USE_CACHE=$9
 
 version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 curl -sLO "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl" -o kubectl

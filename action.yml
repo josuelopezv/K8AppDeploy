@@ -6,6 +6,7 @@ runs:
   image: 'Dockerfile'
   args:
     - ${{ inputs.kube-config }}
+    - ${{ inputs.container-image }}
     - ${{ inputs.app-name }}
     - ${{ inputs.app-namespace }}
     - ${{ inputs.app-port }}
@@ -13,13 +14,15 @@ runs:
     - ${{ inputs.ingress-path }}
     - ${{ inputs.ingress-extra-annotations }}
     - ${{ inputs.ingress-use-cache }}
-    - ${{ inputs.asd }}
 branding:
   icon: 'terminal'
   color: 'blue'
 inputs:
   kube-config:
     description: 'kube config data. Generate it loaclly using: (cat $HOME/.kube/config | base64)'
+    required: true
+  container-image:
+    description: 'docker image to pull in kubernetes'
     required: true
   app-name:
     description: 'name to be used for service,deploy,pod,ingress'
@@ -37,7 +40,7 @@ inputs:
     description: 'ingress path used for backend and frontend'
     default: /
   ingress-extra-annotations:
-    description: 'additional annotations for the ingress yaml separated by coma. Ex.: mykey1: value1, mykey2: value2'
+    description: 'additional annotations for the ingress. string separated by coma. Ex.: mykey1: value1, mykey2: value2'
   ingress-use-cache:
     description: 'enables nginx ingress cache. accepted values: false (default), true'
     default: false
