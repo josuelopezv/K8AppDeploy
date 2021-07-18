@@ -22,25 +22,25 @@ inputs:
     description: 'kube config data. Generate it loaclly using: (cat $HOME/.kube/config | base64)'
     required: true
   container-image:
-    description: 'docker image to pull in kubernetes'
+    description: 'The container image to pull in kubernetes. Can use private registry for example repo.example.com/nginix:latest'
     required: true
   app-name:
-    description: 'name to be used for service,deploy,pod,ingress'
+    description: 'Name to be used for kubernetes resources: service, deploy, pod, ingress'
     required: true
   app-namespace:
-    description: 'namespace to be used generated and used for service,deploy,pod,ingress'
+    description: 'Namespace to be used generated and used for kubernetes resources: service, deploy, pod, ingress'
     default: default
   app-port:
-    description: 'port source exposed in backend container'
+    description: 'Container port exposed by image to use as source for ingress reverse proxy'
     required: true
   ingress-hostname:
-    description: 'ingress host for example app.mydomain.com'
+    description: 'Ingress host. For example app.mydomain.com'
     required: true
   ingress-path:
-    description: 'ingress path used for backend and frontend'
+    description: 'Ingress path used for backend and frontend. See kubernetes documentation'
     default: /
   ingress-extra-annotations:
-    description: 'additional annotations for the ingress. string separated by coma. Ex.: mykey1: value1, mykey2: value2'
+    description: 'Additional annotations for the ingress. String separated by coma. (For Example:) mykey1: value1, mykey2: value2'
   ingress-use-cache:
-    description: 'enables nginx ingress cache. accepted values: false (default), true'
+    description: 'Enables nginx-ingress cache system. Accepted values: false (default), true'
     default: false
