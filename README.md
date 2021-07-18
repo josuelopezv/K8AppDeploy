@@ -25,11 +25,7 @@ jobs:
         app-port: 80
         ingress-extra-annotations: |
           nginx.ingress.kubernetes.io/proxy-buffering: "on",
-          nginx.ingress.kubernetes.io/server-snippet: 
-            "proxy_cache mycache;
-             proxy_cache_lock on;
-             proxy_cache_valid any 60m;
-             proxy_ignore_headers Cache-Control;"
+          nginx.ingress.kubernetes.io/proxy-buffer-size: "8k"
         extra-cmd: |
           kubectl get pods -A
           echo "completed"
