@@ -1,0 +1,17 @@
+on: push
+name: deploy
+jobs:
+  deploy:
+    name: deploy to cluster
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Deploy to Kubernetes cluster
+      uses: josuelopez/K8AppDeploy@main
+      with:
+        kube-config: ${{ secrets.KUBE_CONFIG_DATA}}
+        container-image: nginx:latest
+        app-name: my-app
+        app-namespace: deployed-apps
+        ingress-hostname: example.domain.com
+        app-port: 80
