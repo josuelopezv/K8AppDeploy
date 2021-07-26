@@ -14,6 +14,7 @@ runs:
     - ${{ inputs.ingress-path }}
     - ${{ inputs.ingress-extra-annotations }}
     - ${{ inputs.extra-cmd }}
+    - ${{ inputs.ingress-extra-env }}
 branding:
   icon: 'terminal'
   color: 'blue'
@@ -44,3 +45,5 @@ inputs:
   extra-cmd:
     description: 'extra bash commands to run'
     default: false
+  container-extra-env:
+    description: 'Additional env variables for the container. String separated by coma. (For Example:) mykey1: value1, mykey2: value2'

@@ -10,6 +10,7 @@ HOST_NAME=$6
 APP_PATH=$7
 EXTRA_ANNOTATIONS=$8
 EXTRA_CMDS=$9
+EXTRA_ENV=$10
 
 echo "downloading kubectl"
 version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
@@ -70,6 +71,7 @@ spec:
         containers:
         - name: $APP_NAME
           image: $IMG_TAG
+          env: { $EXTRA_ENV }
           ports:
           - containerPort: $APP_PORT    
 ---
