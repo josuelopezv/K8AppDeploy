@@ -71,6 +71,7 @@ spec:
         containers:
         - name: $APP_NAME
           image: $IMG_TAG
+          imagePullPolicy: Always
           env: [ $EXTRA_ENV ]
           ports:
           - containerPort: $APP_PORT    
