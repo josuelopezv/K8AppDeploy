@@ -14,7 +14,7 @@ runs:
     - ${{ inputs.ingress-path }}
     - ${{ inputs.ingress-extra-annotations }}
     - ${{ inputs.extra-cmd }}
-    - ${{ inputs.ingress-extra-env }}
+    - ${{ inputs.container-extra-env }}
 branding:
   icon: 'terminal'
   color: 'blue'
