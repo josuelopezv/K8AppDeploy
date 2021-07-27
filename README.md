@@ -41,7 +41,7 @@ cat $HOME/.kube/config | base64
 
 `app-name` – **required**: Name to be used for kubernetes resources: service, deploy, pod, ingress
 
-`app-namespace` – **required**: Namespace to be used generated and used for kubernetes resources: service, deploy, pod, ingress
+`app-namespace` - : Namespace to be used generated and used for kubernetes resources: service, deploy, pod, ingress
 
 `app-port` – **required**: Container port exposed by image to use as source for ingress reverse proxy
 

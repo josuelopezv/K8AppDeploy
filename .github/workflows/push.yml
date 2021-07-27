@@ -6,7 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-    - name: Deploy to Kubernetes cluster
+
+    - name: Deploy to Kubernetes cluster minimal
+      uses: josuelopezv/K8AppDeploy@main
+      with:
+        kube-config: ${{ secrets.KUBE_CONFIG_DATA}}
+        container-image: nginx:latest
+        app-name: my-app
+        ingress-hostname: example.agileliteracy.com
+        app-port: 80
+
+    - name: Deploy to Kubernetes cluster full
       uses: josuelopezv/K8AppDeploy@main
       with:
         kube-config: ${{ secrets.KUBE_CONFIG_DATA}}
