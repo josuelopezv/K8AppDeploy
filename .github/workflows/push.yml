@@ -31,3 +31,5 @@ jobs:
         extra-cmd: |
           kubectl get pods -A
           echo "completed"
+        container-extra-env: |
+          {name: DEMO_GREETING, value: "Hello from the environment"}

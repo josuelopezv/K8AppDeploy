@@ -12,10 +12,6 @@ EXTRA_ANNOTATIONS=$8
 EXTRA_CMDS=$9
 EXTRA_ENV=${10}
 
-if ! [ -z "$EXTRA_ENV" ] ; then #if EXTRA_ENV not empty
-EXTRA_ENV="env: [ $EXTRA_ENV ]"
-fi
-
 echo "downloading kubectl"
 version=$(curl -Ls https://dl.k8s.io/release/stable.txt)
 curl -sLO "https://dl.k8s.io/release/$version/bin/linux/amd64/kubectl" -o kubectl
@@ -75,7 +71,7 @@ spec:
         containers:
         - name: $APP_NAME
           image: $IMG_TAG
-          $EXTRA_ENV
+          env: [ $EXTRA_ENV ]
           ports:
           - containerPort: $APP_PORT    
 ---
