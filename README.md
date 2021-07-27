@@ -53,4 +53,4 @@ cat $HOME/.kube/config | base64
 
 `extra-cmd` – : extra bash commands to run after deploy
 
-`container-extra-env` – : Additional env variables for the container. String separated by coma. For Example: ```mykey1: value1, mykey2: value2```
+`container-extra-env` – : Additional env variables for the container. String separated by coma. For Example: ```{name: DEMO_GREETING, value: "Hello from the environment"}, {name: DEMO_FAREWELL, value: "Such a sweet sorrow"}```

@@ -71,7 +71,7 @@ spec:
         containers:
         - name: $APP_NAME
           image: $IMG_TAG
-          env: { $EXTRA_ENV }
+          env: [ { $EXTRA_ENV } ]
           ports:
           - containerPort: $APP_PORT    
 ---
