@@ -10,7 +10,7 @@ HOST_NAME=$6
 APP_PATH=$7
 EXTRA_ANNOTATIONS=$8
 EXTRA_CMDS=$9
-EXTRA_ENV=$10
+EXTRA_ENV=${10}
 
 if ! [ -z "$EXTRA_ENV" ] ; then #if EXTRA_ENV not empty
 EXTRA_ENV="env: [ $EXTRA_ENV ]"
