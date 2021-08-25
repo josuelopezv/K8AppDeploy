@@ -84,7 +84,8 @@ kind: Ingress
 metadata:
     name: $APP_NAME
     namespace: $APPNS
-    annotations: { $EXTRA_ANNOTATIONS }
+    annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
     - host: $HOST_NAME
@@ -97,7 +98,10 @@ spec:
               name: $APP_NAME
               port:
                 number: 80
-                
+    tls:
+    - hosts:
+      - $HOST_NAME
+      secretName: $APP_NAME-cert   
 EOF
 echo "applied config files"
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
