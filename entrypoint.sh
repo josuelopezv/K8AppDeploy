@@ -98,10 +98,10 @@ spec:
               name: $APP_NAME
               port:
                 number: 80
-    tls:
-    - hosts:
-      - $HOST_NAME
-      secretName: $APP_NAME-cert   
+  tls:
+  - hosts:
+    - $HOST_NAME
+    secretName: $APP_NAME-cert   
 EOF
 echo "applied config files"
 kubectl set image deployment/$APP_NAME $APP_NAME=$IMG_TAG --record -n $APPNS
